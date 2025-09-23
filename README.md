@@ -22,6 +22,14 @@ Beside these requirements, you are allowed to create additional rules :-)
 
 ---
 
+### Prerequisites
+
+You must have installed the libraries required to communicate with the OLED display on your RPI. 
+
+See instructions and files from here: [gitlab.au.dk/platforms/rpi5/ecesyshat/](https://gitlab.au.dk/platforms/rpi5/ecesyshat/-/tree/main/Libraries?ref_type=heads)
+
+---
+
 ### Hardware Design
 
 The ECE-SYS-HAT provides six buttons (switches), three LEDs, accelerometer, and an OLED dislay.
