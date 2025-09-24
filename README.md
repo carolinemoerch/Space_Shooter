@@ -24,9 +24,9 @@ Beside these requirements, you are allowed to create additional rules :-)
 
 ### Prerequisites
 
-You must have installed the libraries required to communicate with the OLED display on your RPI. 
+You must [fork](https://www.geeksforgeeks.org/git/how-to-fork-a-project-in-gitlab/) this repository to you own Gitlab group and clone it to you RPI from there. 
 
-See instructions and files from here: [gitlab.au.dk/platforms/rpi5/ecesyshat/](https://gitlab.au.dk/platforms/rpi5/ecesyshat/-/tree/main/Libraries?ref_type=heads)
+To communicate with the OLED display, the required libraries must be installed on your RPI. You can find files and instructions here: [gitlab.au.dk/platforms/rpi5/ecesyshat/](https://gitlab.au.dk/platforms/rpi5/ecesyshat/-/tree/main/Libraries?ref_type=heads)
 
 ---
 
