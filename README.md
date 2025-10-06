@@ -113,10 +113,10 @@ Takes button (gpio) inputs and publishes them for the game.
 
 **YOU MUST IMPLEMENT THE CONTENT OF THIS CLASS**
 
-1) The *Constructor* must be updated so, the gpio inputs are requested and prepared for reading
+1) The *Constructor* must be updated so, the gpio inputs are requested and prepared for blocking level-based reading (GPIO_GET_LINEHANDLE_IOCTL)
 
 2) Create at thread that runs at fixed interval to:
-  * Read the GPIO-connected direction + shooting buttons.
+  * Read the GPIO-connected direction + shooting buttons (GPIOHANDLE_GET_LINE_VALUES_IOCTL).
   * Publish when shooting button has been tapped (pressed-released)
   * Update the shared *game state*.
 
@@ -175,9 +175,9 @@ To implement the missing parts of the game, the following activities are propose
 #### Activity 1: Implement Buttons Class
 
 **Task 1:**
-Implement the constructor for the `Buttons` to allocate gpios and set their direction.
+Implement the constructor for the `Buttons` to allocate gpios and set their direction. Buttons must be read with level-triggered blocking I/O (GPIO_GET_LINEHANDLE_IOCTL).
 
-**Task 2:** Implement `buttonsThread`. The thread must run at a fixed interval and read all gpios. 
+**Task 2:** Implement `buttonsThread`. The thread must run at a fixed interval and read all gpios (GPIOHANDLE_GET_LINE_VALUES_IOCTL). 
 The direction (move) button state must be accessable using `Buttons::readMoveButtons()`. See details in the function. 
 Shoot button taps (press-relase) inputs must be signalled imidiately using `GameState::shootButton_cv`. 
 
