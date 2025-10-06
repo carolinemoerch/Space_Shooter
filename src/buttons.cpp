@@ -39,6 +39,14 @@ Buttons::~Buttons()
 
 Vec2 Buttons::readMoveButtons()
 {
+    /* TODO: ReadMoveButtons
+     * returns latest value of move buttons:
+     * - up: {0, -1}
+     * - down {0, 1}
+     * - left: {-1 ,0}
+     * - right: {1, 0}
+     * - None pressed: {0, 0}   
+     */
     return {0, 0};
 }
 
