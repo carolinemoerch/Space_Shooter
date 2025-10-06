@@ -128,6 +128,13 @@ Takes button (gpio) inputs and publishes them for the game.
   * Publish when shooting button has been tapped (pressed-released)
   * Update the shared *game state*.
 
+3)  Implement `ReadMoveButtons()` that returns the latest reading of the move buttons as the following values:
+  * up: {0, -1}
+  * down {0, 1}
+  * left: {-1 ,0}
+  * right: {1, 0}
+  * None pressed: {0, 0}   
+
 #### `Display`
 
 Runs a thread at fixed interval to:
