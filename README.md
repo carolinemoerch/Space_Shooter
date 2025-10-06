@@ -12,10 +12,18 @@ This exercise exemplifies the use of Posix I/O and concurrency to implement a re
 
 ## Prerequisites
 
-You must [fork](https://www.geeksforgeeks.org/git/how-to-fork-a-project-in-gitlab/) this repository to you own Gitlab group and clone it to you RPI from there. 
+You must [fork](https://www.geeksforgeeks.org/git/how-to-fork-a-project-in-gitlab/) this repository to you own Gitlab group and clone it to you RPi from there.
+On your RPi using VS Code's Git extension or using a terminal:
+```bash
+cd
+git clone <your-space-shooter-repo>
+```
 
 To communicate with the OLED display, the required libraries must be installed on your RPI. You can find files and instructions here: [gitlab.au.dk/platforms/rpi5/ecesyshat/](https://gitlab.au.dk/platforms/rpi5/ecesyshat/-/tree/main/Libraries?ref_type=heads)
 
+Note!!! **Do not download the library into your space shooter project directory**
+
+Check that *CMake* and *CMakeTools* extensions for VS Code are installed on your Raspberry Pi. Do this in VS Code after establishing the remote connections. After opening the space shooter project in VSCode on your RPi, choose the Cmake extension, pick the pencil in configurations and scan for kits. After 5 seconds, pick the pencil again and choose the Clang toolchain. Now you can build and launch the project on your RPi.
 
 ## Approval
 
@@ -113,10 +121,10 @@ Takes button (gpio) inputs and publishes them for the game.
 
 **YOU MUST IMPLEMENT THE CONTENT OF THIS CLASS**
 
-1) The *Constructor* must be updated so, the gpio inputs are requested and prepared for blocking level-based reading (GPIO_GET_LINEHANDLE_IOCTL)
+1) The *Constructor* must be updated so, the gpio inputs are requested and prepared for **level-triggered** reading
 
 2) Create at thread that runs at fixed interval to:
-  * Read the GPIO-connected direction + shooting buttons (GPIOHANDLE_GET_LINE_VALUES_IOCTL).
+  * Read the GPIO-connected direction + shooting buttons all **level-triggered**.
   * Publish when shooting button has been tapped (pressed-released)
   * Update the shared *game state*.
 
@@ -175,9 +183,9 @@ To implement the missing parts of the game, the following activities are propose
 #### Activity 1: Implement Buttons Class
 
 **Task 1:**
-Implement the constructor for the `Buttons` to allocate gpios and set their direction. Buttons must be read with level-triggered blocking I/O (GPIO_GET_LINEHANDLE_IOCTL).
+Implement the constructor for the `Buttons` to allocate gpios and set their direction. Buttons must be read with **level-triggered** I/O.
 
-**Task 2:** Implement `buttonsThread`. The thread must run at a fixed interval and read all gpios (GPIOHANDLE_GET_LINE_VALUES_IOCTL). 
+**Task 2:** Implement `buttonsThread`. The thread must run at a fixed interval and read all gpios (**level-trigggered**). 
 The direction (move) button state must be accessable using `Buttons::readMoveButtons()`. See details in the function. 
 Shoot button taps (press-relase) inputs must be signalled imidiately using `GameState::shootButton_cv`. 
 
