@@ -84,7 +84,18 @@ The individual bitmaps (ship, bullet, enemy) use a similar orientation. The prov
 
 ![Ship Bitmap](figures/bitmaps-ship.png)
 
-This means that placing the ship at (0,0) will place the ship's upper-left corner in the display's upper-left corner. Placing the ship at (28,0) will place the ship's bottom three pixel rows below the screen. You will get run-time warnings if you place bitmaps outside the screen area.
+This means that placing the ship at (0,0) will place the ship's upper-left corner in the display's upper-left corner. Placing the ship at (0,28) will place the ship's bottom three pixel rows below the screen. You will get run-time warnings if you place bitmaps outside the screen area.
+
+```
+   01234567 
+28 ###.....
+29 #####...
+30 ######..
+31 ########
+   ######..
+   #####...
+   ###.....  
+```
 
 ---
 
