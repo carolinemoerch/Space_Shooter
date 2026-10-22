@@ -21,7 +21,6 @@ add_executable(space_shooter
     src/enemy.cpp
     src/bullet.cpp
     src/ship.cpp
-    src/MMAPGPIO.cpp
 )
 
 # If I2Cdriver needs external libraries (e.g., -lrt), link them here:

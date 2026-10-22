@@ -2,6 +2,7 @@
 #include "SSD1306_OLED.hpp"
 #include "display.hpp"
 #include "buttons.hpp"
+#include <thread>
 #include "game_controller.hpp"
 #include "accelerometer.hpp"
 #include "enemy.hpp"

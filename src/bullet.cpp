@@ -1,4 +1,7 @@
 #include "bullet.hpp"
+#include "buttons.hpp"
+#include "game_state.hpp"
+#include <thread>
 #include <mutex>
 #include <condition_variable>
 #include <chrono>
@@ -20,7 +23,14 @@ void Bullet::bulletInputThread() {
          * 3) Is sync required?
          * 
          * If button is held down, only one shot must be fired!
-        */       
+        */   
+       std::unique_lock<std::mutex> lock(game->gameMutex);
+       game->shootButton_cv.wait(lock, [&] { return game->shootButtonLeft_flag || game->shootButtonRight_flag; });
+       game->bullets.push_back({game->shipPos.x + 1, game->shipPos.y + (shipHeight / 2)});
+       game->shootButtonLeft_flag = false;
+       game->shootButtonRight_flag = false;
+       lock.unlock(); 
+
     }
 }
 
@@ -34,6 +44,11 @@ void Bullet::bulletUpdateThread() {
              * 2) For each game->bulles, move them 1 px horisontally
              * 3) Is sync required?
              */       
+            game->gameMutex.lock();
+                for(auto &b : game->bullets) {
+                b.x += 1;
+             }
+            game->gameMutex.unlock();
             
             // Delete bullet when out of screen
             for (auto b = game->bullets.begin(); b != game->bullets.end(); ) {
