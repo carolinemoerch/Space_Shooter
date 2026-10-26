@@ -12,10 +12,10 @@ void GameController::gameControllerThread() {
 
         std::unique_lock<std::mutex> lock(game->gameMutex);
         // Wait for enemy or bullet for max 125 ms
-        game->cv.wait_for(lock, std::chrono::milliseconds(125));
+        //game->cv.wait_for(lock, std::chrono::milliseconds(125));
 
         // Wait for enemy or bullet
-        //game->cv.wait(lock);
+        game->cv.wait(lock);
 
         // Collision detection
         for (auto b = game->bullets.begin(); b != game->bullets.end();) {
@@ -42,10 +42,13 @@ void GameController::gameControllerThread() {
         }
 
         //Game over condition
-        // for (auto &e : game->enemies) {
-        //     if (e.x <= 0) {
-        //         game->running = false;
-        //     }
-        // }
+         for (auto &e : game->enemies) {
+             if (e.x <= 0) {
+                 game->running = false;
+             }
+             if(e.x == game->shipPos.x && (abs(game->shipPos.y - e.y)<enemyHeight)) {
+                game->running = false;
+             }
+         }
     }
 }

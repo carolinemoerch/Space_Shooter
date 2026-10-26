@@ -148,6 +148,8 @@ void Buttons::readGPIOs()
     /* TODO: Read GPIOs
      * 1) Update input data buffer with current GPIO state  
      */
+     std::lock_guard<std::mutex> lock(game->gameMutex); //lock mutex until scope is done
+    
     ret_val = ioctl(req_in.fd,GPIOHANDLE_GET_LINE_VALUES_IOCTL,&data_in);
     if(ret_val < 0){
         perror("ioctl(2)");

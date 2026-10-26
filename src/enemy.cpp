@@ -11,9 +11,11 @@ void Enemy::enemyThread() {
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
         // Spawn enemies at leftmost column, random row
+        game->gameMutex.lock();
         if (rand() % 100 == 0) {
             game->enemies.push_back({displayWidth, rand() % (displayHeight-1-enemyHeight/2)});
         }
+        game->gameMutex.unlock();
 
         {
             // Scope must be locked since gameControllerThread
@@ -35,7 +37,10 @@ void Enemy::enemyThread() {
                     ++e;  // normal increment if no erase
                 }
             }
-
+        
         }
+
+        //Added in activity 3: Notify game_controller
+        game->cv.notify_all();
     }
 }

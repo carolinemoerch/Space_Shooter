@@ -30,7 +30,6 @@ void Bullet::bulletInputThread() {
        game->shootButtonLeft_flag = false;
        game->shootButtonRight_flag = false;
        lock.unlock(); 
-
     }
 }
 
@@ -49,8 +48,11 @@ void Bullet::bulletUpdateThread() {
                 b.x += 1;
              }
             game->gameMutex.unlock();
+            game->cv.notify_all();  //Added in activity 3: Notify game_controller
             
             // Delete bullet when out of screen
+            game->gameMutex.lock(); //Added in activity 3
+            
             for (auto b = game->bullets.begin(); b != game->bullets.end(); ) {
                 if (b->x > displayWidth) {
                     b = game->bullets.erase(b);  // get next valid iterator (original b invalidated by erase)
@@ -58,6 +60,7 @@ void Bullet::bulletUpdateThread() {
                     ++b;  // normal increment if no erase
                 }
             }
+            game->gameMutex.unlock();//Added in activity 3
         }
     }
 }
